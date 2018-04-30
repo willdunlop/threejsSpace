@@ -1,0 +1,42 @@
+@font-face {
+    font-family: TrajanPro;
+    src: url(assets/fonts/Trajan_Pro_Regular.ttf);
+}
+
+html {
+  font-family: TrajanPro;
+
+  /**
+  Original Colors
+  sexy aqua - #11e8bb
+  sexy violet - #8200c9
+  */
+
+  background: #ffdddd; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffdddd 0%, #8200c9 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #ffdddd 0%,#8200c9 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #ffdddd 0%,#8200c9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffdddd', endColorstr='#8200c9',GradientType=0 ); /* IE6-9 */
+}
+
+.titles {
+  text-align: left;
+  position: absolute;
+  top: 1%;
+  left: 1%;
+  z-index: 2;
+  color: #e6b0d9;
+}
+
+.title {
+  font-size: 2em;
+}
+
+.sub-title {
+  font-size: 1em;
+}
+
+#container, canvas {
+  position: relative;
+  z-index: 1;
+}

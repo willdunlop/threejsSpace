@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Three.js Space</title>
+
+    <link rel="stylesheet" href="./main.css"></link>
+  </head>
+  <body style="margin: 0">
+      <div id="container"></div>
+      <div class="titles">
+        <div class="title">Three.js Space</div>
+        <div class="sub-title">by ~AcquiredTaste</div>
+      </div>
+
+      <script src="assets/vendor/three.js"></script>
+      <script src="assets/vendor/controls/OrbitControls.js"></script>
+
+      <script type="text/javascript">
+        let container,
+        camera,
+        scene,
+        renderer,
+        light,
+        secondLight,
+        thirdLight,
+        controls,
+        particles,
+        grid,
+        sphere,
+        cube;
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        init();
+        animate();
+
+        function init() {
+          /** Create and add renderer to the HTML */
+          container = document.getElementById('container');
+
+          renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+          renderer.setPixelRatio(window.devicePixelRatio);
+          renderer.setSize(width, height);
+          renderer.setClearColor(0x000000, 0.0);
+          container.appendChild(renderer.domElement);
+
+          /** Scene */
+          scene = new THREE.Scene();
+          // scene.background = new THREE.Color(0xffdddd);
+
+          /** Camera */
+          camera = new THREE.PerspectiveCamera(40, width / height, 1, 10000);
+          camera.position.set(100,50,100);
+
+          /** Light */
+          light = new THREE.DirectionalLight(0xffffff, 0.8);
+          secondLight = new THREE.DirectionalLight(0xffffff, 0.4);
+          thirdLight = new THREE.DirectionalLight(0xffffff, 0.4);
+
+          secondLight.position.set(8.5, -8.5, 8.5);
+          thirdLight.position.set(-8.5, -8.5, 8.5);
+
+          /** Controls */
+          controls = new THREE.OrbitControls( camera, renderer.domElement );
+          // controls.maxPolarAngle = Math.PI * 0.495;
+          controls.target.set( 0, 0, 0 );
+          controls.panningMode = THREE.HorizontalPanning;
+          controls.minDistance = 40.0;
+          controls.maxDistance = 800.0;
+          camera.lookAt( controls.target );
+
+
+
+          const cubeGeo = new THREE.BoxGeometry(15, 15, 15);
+          const cubeMat = new THREE.MeshPhongMaterial({ color: 0xff2222, reflectivity: 1 });
+          cube = new THREE.Mesh(cubeGeo, cubeMat);
+
+
+          grid = new THREE.GridHelper(100, 10, 0xff2222, 0x11e8bb);
+
+
+          /** Add shit to the scene */
+          scene.add(light);
+          scene.add(secondLight);
+          scene.add(thirdLight);
+          scene.add(grid);
+          scene.add(cube);
+
+
+          /** Window resize event listener */
+          window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize() {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+
+        function animate() {
+          requestAnimationFrame(animate);
+
+          renderer.render(scene, camera);
+        }
+
+
+      </script>
+
+    </body>
+</html>
