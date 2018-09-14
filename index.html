@@ -226,9 +226,11 @@
             vUv = uv;
         
             // get a turbulent 3d noise using the normal, normal to high freq
-            noise = 10.0 * -.10 * turbulence( .5 * normal + time);
+            noise = 20.0 * -.10 * turbulence( .5 * normal + time);
+
             // get a 3d noise using the position, low frequency
-            float b = 5.0 * pnoise( 0.05 * position + vec3( 2.0 * time ), vec3( 100.0 ) );
+            float b = 8.0 * pnoise( 0.05 * position + vec3( 4.0 * time ), vec3( 100.0 ) );
+            
             // compose both noises
             // float displacement = - 10. * noise + b;
             float displacement = - noise + b;
@@ -255,6 +257,7 @@
         
             // get a random offset
             float r = .01 * random( vec3( 12.9898, 78.233, 151.7182 ), 0.0 );
+            
             // compose the colour using the UV coordinate
             // and modulate it with the noise like ambient occlusion
             // vec3 color = vec3(vUv * (1. - 2. * noise), 0.0);
@@ -348,7 +351,7 @@
             uniforms: {
               tExplosion: {
                 type: "t",
-                value: THREE.ImageUtils.loadTexture('assets/img/explosion.png')
+                value: THREE.ImageUtils.loadTexture('assets/img/explosion2.png')
               },
               time: {
                 type: "f",
