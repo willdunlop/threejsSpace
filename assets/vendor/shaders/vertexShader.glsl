@@ -185,6 +185,8 @@ float pnoise(vec3 P, vec3 rep)
 //  A vec2 is a two-dimensional vector that specifies from 0 to 1 which texel to read in a given texture
 varying vec2 vUv;
 varying float noise;
+// Retrieve the time value from the uniforms parameter passed through to the shader from three
+uniform float time;
 
 float turbulence( vec3 p ) {
     float w = 100.0;
@@ -199,15 +201,16 @@ float turbulence( vec3 p ) {
 }
 
 void main() {
+    
     vUv = uv;
 
     // get a turbulent 3d noise using the normal, normal to high freq
-    noise = 10.0 * -.10 * turbulence( .5 * normal );
+    noise = 10.0 * -.10 * turbulence( .5 * normal + time);
     // get a 3d noise using the position, low frequency
-    float b = 5.0 * pnoise( 0.05 * position, vec3( 100.0 ) );
+    float b = 5.0 * pnoise( 0.05 * position + vec3( 2.0 * time ), vec3( 100.0 ) );
     // compose both noises
-    float displacement = - 10. * noise + b;
-
+    // float displacement = - 10. * noise + b;
+    float displacement = - noise + b;
     //move the position along the normal and transform it
     vec3 newPosition = position + normal * displacement;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
